@@ -1,0 +1,105 @@
+<div class="row justify-content-center">
+  <div class="col-md-11 col-lg-11 col-sm-11 col-xs-11 usersInfo">
+    <div class="row justify-content-between">
+      <div class="col-md-4 col-lg-3 col-5">
+        <h2>User List</h2>
+      </div>
+      <div class="col-md-4 col-lg-3 col-5">
+        <button class="btn btn-success" (click)="goUserForm()">
+          Create user
+        </button>
+      </div>
+    </div>
+    <hr />
+    <div *ngIf="paginationUser$ | async as paginationUser">
+      <table
+        class="table tableBorder table-light"
+        *ngIf="paginationUser.users.length > 0; else Empty"
+      >
+        <thead class="table-light">
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of paginationUser.users">
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <div class="row">
+                <div class="col-4">
+                  <i
+                    title="Edit user"
+                    class="fa fa-edit text-primary cursorPointer"
+                    (click)="goUserForm(user.id)"
+                  ></i>
+                </div>
+                <div class="col-4">
+                  <i
+                    title="Delete user"
+                    class="fa fa-trash text-danger cursorPointer"
+                    (click)="deleteUser(user)"
+                  ></i>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="row justify-content-between">
+        <div class="col-md-3">
+          <span>Total users: {{ paginationUser.totalElements }} </span>
+          
+        </div>
+        <div class="col-md-3">
+          <div class="row">
+            <div class="col-7 text-end">
+              <span>page size</span>
+            </div>
+            <div class="col-5">
+              <select 
+              #pageSizeSelector
+              (change)="changePageSize(pageSizeSelector.value)"
+              class="form-select form-select-sm"
+              aria-label="Default select example">
+                <option selected [value]="5">5</option>
+                <option [value]="10">10</option>
+                <option [value]="15">15</option>
+              </select>
+            </div>
+          </div>
+          
+          
+        </div>
+        <div class="col-md-3 text-end">
+          page
+          <i
+            class="fa fa-angle-left paginationRows
+            "
+            (click)="changePage(paginationUser.currentPage-1)"
+            *ngIf="paginationUser.currentPage > 0"
+          ></i
+          >&nbsp;<span>
+            {{ paginationUser.currentPage + 1 }} of
+            {{ paginationUser.totalPages  }}</span
+          >&nbsp;<i
+            class="fa fa-angle-right paginationRows"
+            *ngIf="paginationUser.currentPage<paginationUser.totalPages-1"
+            (click)="changePage(paginationUser.currentPage+1)"
+          ></i>
+        </div>
+      </div>
+      <ng-template #Empty>
+        <div>Your user list is empty :/</div>
+        <a class="cursorPointer" [routerLink]="['add-user']"
+          >Create a new user :D</a
+        >
+      </ng-template>
+    </div>
+  </div>
+</div>

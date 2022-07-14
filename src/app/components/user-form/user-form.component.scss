@@ -1,0 +1,31 @@
+.addUserForm{
+    margin-top: 5rem;
+    background-color: rgba(217, 217, 217, 0.834);
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+.title{
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: rgb(255, 255, 255);
+}
+
+.form-group{
+    margin-bottom: 10px;
+}
+
+.loading{
+    margin-top: 6rem;
+    color: rgba(177, 177, 177, 0.834);
+}
+
+.invalidEmail{
+    color: rgb(240, 139, 139);
+    font-size: 13px;
+}
+
+.invalidEmail:active{
+    display: none;
+}
