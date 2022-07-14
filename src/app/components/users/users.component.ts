@@ -37,7 +37,9 @@ export class UsersComponent implements OnInit {
       switchMap(_ => this.userService.getAllUsers(this.currentPage,this.pageSize)))
       .subscribe(users => {
         if(users.totalPages<=this.currentPage){
-          this.changePage(users.totalPages-1);
+          let tempCurrentPage:number = users.totalPages-1;
+          tempCurrentPage = tempCurrentPage<0?0:tempCurrentPage;
+          this.changePage(tempCurrentPage);
         }else{
           this.paginationUser$.next(users)
         }
