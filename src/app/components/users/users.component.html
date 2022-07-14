@@ -12,44 +12,47 @@
     </div>
     <hr />
     <div *ngIf="paginationUser$ | async as paginationUser">
-      <table
-        class="table tableBorder table-light"
-        *ngIf="paginationUser.users.length > 0; else Empty"
-      >
-        <thead class="table-light">
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let user of paginationUser.users">
-            <td>{{ user.firstName }}</td>
-            <td>{{ user.lastName }}</td>
-            <td>{{ user.email }}</td>
-            <td>
-              <div class="row">
-                <div class="col-4">
-                  <i
-                    title="Edit user"
-                    class="fa fa-edit text-primary cursorPointer"
-                    (click)="goUserForm(user.id)"
-                  ></i>
+      <div *ngIf="paginationUser.users.length > 0; else Empty">
+        <div class="table-responsive">
+          <table
+          class="table tableBorder table-light"
+        >
+          <thead class="table-light">
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of paginationUser.users">
+              <td>{{ user.firstName }}</td>
+              <td>{{ user.lastName }}</td>
+              <td>{{ user.email }}</td>
+              <td>
+                <div class="row">
+                  <div class="col-4">
+                    <i
+                      title="Edit user"
+                      class="fa fa-edit text-primary cursorPointer"
+                      (click)="goUserForm(user.id)"
+                    ></i>
+                  </div>
+                  <div class="col-4">
+                    <i
+                      title="Delete user"
+                      class="fa fa-trash text-danger cursorPointer"
+                      (click)="deleteUser(user)"
+                    ></i>
+                  </div>
                 </div>
-                <div class="col-4">
-                  <i
-                    title="Delete user"
-                    class="fa fa-trash text-danger cursorPointer"
-                    (click)="deleteUser(user)"
-                  ></i>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+     
 
       <div class="row justify-content-between">
         <div class="col-md-3">
@@ -93,6 +96,7 @@
             (click)="changePage(paginationUser.currentPage+1)"
           ></i>
         </div>
+      </div>
       </div>
       <ng-template #Empty>
         <div>Your user list is empty :/</div>
